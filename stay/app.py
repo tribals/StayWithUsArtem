@@ -34,8 +34,6 @@ async def on_user_left_group(event):
 
 
 def _is_target_user(user_id):
-    _log.debug('target user: %s', user_id)
-
     return user_id == config.TELEGRAM_TARGET_USER_ID
 
 
@@ -51,5 +49,4 @@ async def main():
     client = create_client()
 
     async with client:
-        await client.send_message('me', 'Hello, myself!')
         await client.run_until_disconnected()
