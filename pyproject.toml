@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "stay"
+version = "0.0.1"
+description = "Stay with us, Artem"
+authors = ["Anton Siluev <burning2007@ya.ru>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.7"
+Telethon = "~1.21"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
