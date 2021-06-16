@@ -1,0 +1,6 @@
+[telegram]
+api_id=123456
+api_hash="0123456789abcdef"
+phone="+79156692826"
+target_group_id=-566471448
+target_user_id=485679086

@@ -1,10 +1,17 @@
 import asyncio
-import logging
-import sys
+import os
 
-from stay.app import main
+from stay.app import app
+from stay.configuration import EnvConfig, TOMLFileConfig
 
 
-logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+def main():
+    asyncio.run(app(EnvConfig(os.environ.copy()), None))
 
-asyncio.run(main())
+
+def winmain(config_path, code_callback):
+    asyncio.run(app(TOMLFileConfig(config_path), code_callback))
+
+
+if __name__ == '__main__':
+    main()

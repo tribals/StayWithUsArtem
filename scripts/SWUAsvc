@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import sys
+from pathlib import Path
+
+import win32serviceutil
+import servicemanager
+import rpyc
+
+from stay.__main__ import winmain
+
+
+class SWUAsvc(win32serviceutil.ServiceFramework):
+    _svc_name_ = 'SWUAsvc'
+    _svc_display_name_ = 'SWUAsvc'
+
+    def SvcDoRun(self):
+        winmain(runtime_config_path(), code_callback)
+
+    def SvcStop(self):
+        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
+        self.ReportServiceStatus(win32service.SERVICE_STOPPED)
+
+
+def runtime_config_path():
+    return Path(sys._MEIPASS).joinpath('config.toml')
+
+
+def code_callback():
+    client = rpc_client()
+
+    return client.builtins.input('Code: ')
+
+
+def rpc_client():
+    return rpyc.classic.connect('localhost')
+
+
+def main(Svc):
+    if _is_runnig_as_service():
+        host_service(Svc)
+    else:
+        win32serviceutil.HandleCommandLine(Svc)
+
+
+def _is_runnig_as_service():
+    return len(sys.argv) == 1  # NOTE: executed with no args
+
+
+def host_service(Svc):
+    servicemanager.Initialize()
+    servicemanager.PrepareToHostSingle(Svc)
+    servicemanager.StartServiceCtrlDispatcher()
+
+
+sys.exit(main(SWUAsvc))

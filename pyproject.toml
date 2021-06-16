@@ -4,11 +4,13 @@ version = "0.0.1"
 description = "Stay with us, Artem"
 authors = ["Anton Siluev <burning2007@ya.ru>"]
 license = "MIT"
-readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "~3.7"
+python = "^3.7"
 Telethon = "~1.21"
+toml = { version = "~0.10", markers = "sys_platform == 'win32'" }
+pywin32 = { version = "301", markers = "sys_platform == 'win32'" }
+rpyc = { version = "~5.0", markers = "sys_platform == 'win32'" }
 
 [tool.poetry.dev-dependencies]
 
